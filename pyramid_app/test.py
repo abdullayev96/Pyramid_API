@@ -6,19 +6,43 @@ from pyramid.response import Response
 
 def main():
     with Configurator() as config:
-        ###  add url
+        # Add routes
         config.add_route('intro', '/')
-        config.add_route('text', '/text')
+        config.add_route('begin', '/begin')
         config.add_route('jobs', '/jobs')
 
         config.scan('views')
 
-        application = config.make_wsgi_app()
+        app = config.make_wsgi_app()
 
-    server = make_server('0.0.0.0', 8000, application)
+    server = make_server('0.0.0.0', 8000, app)
+    print("Server running on http://localhost:8000/")
     server.serve_forever()
 
-main()
+
+if __name__ == "__main__":
+    main()
+
+
+
+#
+# def main():
+#     with Configurator() as config:
+#         ###  add url
+#         config.add_route('intro', '/')
+#         config.add_route('begin', '/begin')
+#         config.add_route('jobs', '/jobs')
+#
+#         config.scan()
+#
+#         app = config.make_wsgi_app()
+#
+#     server = make_server('0.0.0.0', 8000, app)
+#     server.serve_forever()
+#
+# main()
+#
+
 
 
 ############    second

@@ -1,7 +1,8 @@
-#from pyramid.compat import escape
 from pyramid.response import Response
 from pyramid.view import view_config
-
+import json
+from wsgiref.simple_server import make_server
+from pyramid.config import Configurator
 
 
 
@@ -16,15 +17,18 @@ def home_page(request):
     return Response(header + body + footer)
 
 
-@view_config(route_name='text')
+
+@view_config(route_name='begin')
 def job_history1(request):
     ctx = {
-        "Teacher":"Ulug'bek Valiyev",
+        "Teacher": "Ulug'bek Valiyev",
         "ball": 5
     }
+    json_body = json.dumps(ctx)
+    return Response(body=json_body, content_type='application/json', charset='utf-8')
 
 
-    return Response(ctx)
+    #return Response(ctx)
 
 @view_config(route_name='jobs')
 def job_history(request):
@@ -36,4 +40,20 @@ def job_history(request):
 
 
 
+# def main():
+#     with Configurator() as config:
+#         config.add_route('intro', '/')
+#         config.add_route('begin', '/begin')
+#         config.add_route('jobs', '/jobs')
+#         config.scan()
+#         app = config.make_wsgi_app()
+#     return app
+#
+#
+# if __name__ == '__main__':
+#     app = main()
+#     server = make_server('0.0.0.0', 8080, app)
+#     print("Server running at http://localhost:8080")
+#     server.serve_forever()
+#
 
